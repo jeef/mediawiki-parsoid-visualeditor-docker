@@ -49,3 +49,5 @@ Also if you're looking for a full hands-off environment type of build check out 
 
 Goodluck!
 
+Final note, the base directory for this Mediawiki installation is "/var/www/html".  That is where you'd want to place your LocalSettings.php file once it's genereated.  
+
