@@ -3,6 +3,8 @@ FROM php:7.1-apache
 # System Dependencies.
 RUN apt-get update && apt-get install -y \
 		git \
+		libcurl4-openssl-dev \
+		curl \
 		imagemagick \
 		libicu-dev \
 	--no-install-recommends && rm -r /var/lib/apt/lists/*
@@ -43,6 +45,11 @@ RUN curl -fSL "https://releases.wikimedia.org/mediawiki/${MEDIAWIKI_MAJOR_VERSIO
 	&& rm mediawiki.tar.gz \
 && chown -R www-data:www-data extensions skins cache images
 
+RUN git clone -b REL1_29 https://gerrit.wikimedia.org/r/p/mediawiki/extensions/VisualEditor.git ./extensions/VisualEditor
+
+WORKDIR /var/www/html/extensions/VisualEditor
+
+RUN git submodule update --init
 
 # Parsoid setup
 WORKDIR /usr/lib/
